@@ -1,0 +1,59 @@
+<div class="container">
+	<div class="page-header">
+		<h2>Management</h2>
+	</div>
+	<div class="row">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<span style="font-size:16px; padding-left:5px">Users <span class="badge">{{management.users.length}}</span></span>
+				<a href="#" ng-click="management.showAll();"><span class="pull-right" style="font-size:16px; color:white;">Show All</span></a>
+			</div>
+			<div class="panel-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>Date Created</th>
+						<th>Permission</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in management.users | limitTo: management.userDisplayLimit">
+						<td>{{ user.username }}</td>
+						<td>{{ user.firstname }}</td>
+						<td>{{ user.lastname }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.dateCreated | date}}</td>
+						<td>{{ user.permissions }}</td>
+						<td>
+							<a href="/edit/{{ user._id }}">
+								<button class="btn btn-sm btn-warning" ng-show="(main.isMod || main.isAdmin) && !management.editMode">Edit</button>
+							</a>
+							<button class="btn btn-sm btn-secondary" ng-show="management.editMode" ng-click="management.toggleEditMode()">Cancel</button>
+							<button class="btn btn-sm btn-primary" ng-show="management.editMode">Update</button>
+							<button class="btn btn-sm btn-danger" ng-show="main.isAdmin && !management.editMode" ng-click="management.deleteUser(user.username);">Delete</button>
+						</td>
+						
+					</tr>
+				</tbody>
+			</table>
+
+				
+			</div>
+		</div>
+	</div>
+	<br>
+		<div class="jumbotron text-center show-hide-message alert alert-success" ng-show="management.successMsg">
+			<span class="glyphicon glyphicon-repeat spinner"></span>
+			<p>{{ management.successMsg }}</p>
+		</div>
+		<br>
+		<div class="row show-hide-message" ng-show="management.errorMsg">
+			<div class="alert alert-danger">{{ management.errorMsg }}</div>
+		</div>
+		<br>
+</div>

@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<base href="/">
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Rep Hub</title>
+
+		<!-- Bootstrap/CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" href="assets/css/profile.css">
+		<link rel="stylesheet" href="assets/css/workouts.css">
+
+		<!-- 
+			Cloaks the links that show/hide based on specific variables so that they are not glitching
+			everytime  page is rendered
+		--> 
+		<style type="text/css">
+
+			[ng\:cloak], [ng-cloak], .ng-cloak{
+				display: none;
+			}
+		</style>
+
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+		<!-- Angular -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>	
+
+		<!-- ChartJS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+		<script src="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+
+		<!-- Angular Main/Routes -->
+		<script type="text/javascript" src="app/app.js"></script>
+		<script type="text/javascript" src="app/routes.js"></script>
+
+		<!-- Services -->
+		<script type="text/javascript" src="app/services/userServices.js"></script>
+		<script type="text/javascript" src="app/services/authServices.js"></script>
+		<script type="text/javascript" src="app/services/workoutServices.js"></script>
+		<script type="text/javascript" src="app/services/exerciseServices.js"></script>
+
+
+		<!-- Controllers -->
+		<script type="text/javascript" src="app/controllers/contactCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/userCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/managementCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/profileCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/workoutCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/exerciseCtrl.js"></script>
+
+		<!-- Directives -->
+		<script type="text/javascript" src="app/directives/fileModel.js"></script>
+		<script type="text/javascript" src="app/directives/checkImage.js"></script>
+
+		<!-- BootstrapJS -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</head>
+	<body ng-app="rephubApp" ng-controller="mainCtrl as main" ng-cloak>
+		<div id="defaultMainContent">
+			<header id="mainHeader">
+				<nav class="navbar navbar-inverse"> 
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+										<span class="icon-bar"></span>
+								        <span class="icon-bar"></span>
+								        <span class="icon-bar"></span>
+									</button>
+									<a class="navbar-brand" href="/home"><span id="websiteTitle">Rep Hub</span></a>
+								</div>
+								<div class="collapse navbar-collapse" id="myNavbar">
+									<span class="nav navbar-nav navbar-left" style="margin:7px 0px;">
+										<div class="input-group" style="max-width: 400px;">
+									      <input type="text" class="form-control" id="searchBar" placeholder="Search">
+									      <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+									    </div>
+								    </span>
+									<ul class="nav navbar-nav navbar-right">
+								        <li><a href="/signup" ng-show="!main.isLoggedIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+								        <li><a href="/login" ng-show="!main.isLoggedIn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+										<li class="dropdown" ng-show="main.isLoggedIn">
+											<a class="dropdown-toggle" data-toggle="dropdown">{{ main.username }} <span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="/profile/{{main.username}}" ng-show="main.isLoggedIn"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+												<li><a href="/management" ng-show="main.isLoggedIn && (main.isAdmin || main.isMod)"><span class="glyphicon glyphicon-wrench"></span> Management</a></li>
+												<li><a href="/mod" ng-show="main.isLoggedIn && (main.isAdmin || main.isMod)"><span class="glyphicon glyphicon-globe"></span> Mod</a></li>
+												<li><a href="#" ng-show="main.isLoggedIn" ng-click="main.logoutUser();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+											</ul>
+										</li>
+								    </ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</header>
+			<div id="mainBody">
+				<div ng-view></div>
+			</div>
+			<footer id="mainFooter">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<h3 class="linkListHeader">Links</h3>
+							<ul class="referenceLinks list-unstyled" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<li><a href="https://angularjs.org/">angularJS</a></li>
+								<li><a href="http://getbootstrap.com/">bootstrap</a></li>
+								<li><a href="https://nodejs.org/en/">nodejs</a></li>
+								<li><a href="http://expressjs.com/">express</a></li>						
+								<li><a href="https://www.mongodb.com/">mongodb</a></li>
+								<li><a href="http://mongoosejs.com">mongoose</a></li>
+								<li><a href="http://brew.sh/">homebrew</a></li>
+							</ul>
+							<ul class="list-unstyled col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<li><a href="#"><img src="../assets/images/githubIcon-1x.png"></a></li>
+								<li><a href="#"><img src="../assets/images/linkedinIcon-1x.png"></a></li>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<h3 class="linkListHeader">Contact Me</h3>
+							<div ng-controller="contactMeCtrl">
+								<form name="contactMeForm" ng-submit="submitMessage(userInfo)">
+									<input type="text" name="name" ng-model="userInfo.name" placeholder="name">
+									<br><br>
+									<input type="text" name="email" ng-model="userInfo.email" placeholder="email">
+									<br><br>
+									<textarea rows="4" cols="50" ng-model="userInfo.message" placeholder="message"></textarea>
+									<br><br>
+									<button type="submit" class="btn btn-success" ng-disabled="contactMeForm.$invalid">Send</button>
+								</form>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+
+</html>

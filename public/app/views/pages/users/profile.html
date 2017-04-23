@@ -1,0 +1,315 @@
+<div class="container">
+	<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 5px;">
+		<div class="panel" style="margin:0px;">
+			<div class="panel-heading">
+				<span style="font-size:24px; padding-left:5px">{{ username }}</span>
+				<div class="btn-group btn-group-sm pull-right" role="group" ng-show="!isMainUser">
+					<button type="button" class="btn btn-default" ng-show="!isFollowing" ng-click="followUser();"><span class="glyphicon glyphicon-plus"> Follow</span></button>
+					<button type="button" class="btn btn-default" ng-show="isFollowing" ng-click="unfollowUser();"><span class="glyphicon glyphicon-remove"> Unfollow</span></button>
+					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"> Message</span></button>
+					<button role="presentation" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down"></span></button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Block</a></li>
+						<li><a class="dropdown-item" href="#">Report</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding: 5px;">
+		<div class="panel">
+			<div class="panel-heading" style="display: block; text-align:center;">
+				<div style="display: inline-block;max-width: 225px;" class="profileMenu">
+					<img check-image='../assets/images/defaultProfilePic.png' ng-src="../assets/uploads/{{username}}/{{profileImage}}" alt="Image" class="img-responsive">
+					<ul class="nav nav-pills nav-justified">
+						<li role="presentation"><a data-toggle="tab" href="##blog" class="menuItem"><span class="glyphicon glyphicon-home"></span></a></li>
+						<li role="presentation"><a data-toggle="tab" href="##photos" class="menuItem"><span class="glyphicon glyphicon-picture"></span></a></li>
+						<li role="presentation"><a href="/workouts" class="menuItem"><span class="glyphicon glyphicon-book"></span></a></li>
+						<li role="presentation"><a data-toggle="tab" href="##meals" class="menuItem"><span class="glyphicon glyphicon-cutlery"></span></a></li>
+						<li role="presentation"><a data-toggle="tab" href="##stats" class="menuItem"><span class="glyphicon glyphicon-stats"></span></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div><a data-toggle="tab" href="##editProfile" ng-show="isMainUser">Edit Profile</a></div>
+				<div><a data-toggle="tab" href="##profilePic" ng-show="isMainUser">Manage Profile Pic</a></div>
+				<div><a data-toggle="tab" href="##messages" ng-show="isMainUser">Messages <span class="badge badge-info" style="background-color: #269abc;">12</span></a></div>
+				<div><a href="#">Following <span class="badge">{{following.length}}</span></a></div>
+				<div><a href="#">Followers <span class="badge">{{followers.length}}</span></a></div>
+				<div><a data-toggle="tab" href="##about">About</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding: 5px;">
+		<div class="tab-content">
+			<div id="blog" class="tab-pane active">
+				<div class="panel">
+					Blog
+				</div>
+			</div>
+			<div id="meals" class="tab-pane">
+				<div class="panel panel-default">
+					<div class="panel-heading"><span style="font-size:16px; padding-left:5px">Meals</span></div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+			<div id="stats" class="tab-pane">
+				<div class="panel panel-default">
+					<div class="panel-heading"><span style="font-size:16px; padding-left:5px">Stats</span></div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+			<div id="messages" class="tab-pane">
+				<div class="panel">
+					<table class="table">
+						<tr>
+							<td>
+								<div class="container-fluid">
+									<span style="font-size:16px; padding-left:5px">Messages</span>
+									<div class="btn-group btn-group-sm pull-right" role="group" aria-label="Basic example">
+									  <button type="button" class="btn btn-default">inbox</button>
+									  <button type="button" class="btn btn-default">sent</button>
+									  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-send"></span></button>
+									</div>	
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Content</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- Edit profile -->
+			<div id="editProfile" class="tab-pane">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Edit Profile
+					</div>
+					<div class="panel-body">
+						<form name="aboutUserForm" ng-submit="updateProfileData()">
+							<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							    <label for="firstnameInput" class="col-sm-2 control-label">First name</label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" id="firstnameInput" placeholder="First Name" name="firstname" ng-model="firstname">
+							    </div>
+							</div>
+							<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							    <label for="lastnameInput" class="col-sm-2 control-label">Last name</label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" id="lastnameInput" placeholder="Last Name" name="lastname" ng-model="lastname">
+							    </div>
+							</div>
+							<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							    <label for="emailInput" class="col-sm-2 control-label">Email</label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" id="emailInput" placeholder="Email" name="email" ng-model="email">
+							    </div>
+							</div>
+							<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<label for="weightInput" class="col-sm-2 control-label">Weight</label>
+							    <div class="col-sm-4">
+							    	<div class="input-group">
+								    	<input type="text" class="form-control" id="weightInput" name="weight" placeholder="weight" ng-model="weight">
+								    	<span class="input-group-addon">{{ weightUnit}}</span>
+							    	</div>
+							    </div>
+								<label class="col-sm-2 control-label">Height</label>
+								<div class="col-sm-4">
+									<div class="input-group">
+							    		<input type="text" class="form-control" id="heightInput" name="height" placeholder="height" ng-model="height">
+							    		<span class="input-group-addon">{{ heightUnit }}</span>
+							    	</div>
+							    </div>
+							</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							    <div class="col-sm-6">
+							    	<div class="panel panel-default">
+								    	<div class="panel-heading" style="text-align:center;">Units</div>
+								    	<div class="panel-body">
+								    		<table id="unitsTable" class="table table-condensed">
+									    		<tr>
+								    				<td>Weight</td>
+								    				<td>
+								    					<div class="btn-group" role="group" aria-label="...">
+														  <button type="button" class="btn btn-default btn-sm" ng-class="{'active': isWeightActive('lbs')}" value="lbs" ng-click="setWeightUnit($event)">lbs</button>
+														  <button type="button" class="btn btn-default btn-sm" ng-class="{'active': isWeightActive('kg')}" value="kg" ng-click="setWeightUnit($event)">kg</button>
+														</div>
+								    				</td>
+								    			</tr>
+								    			<tr>
+								    				<td>Height</td>
+								    				<td>
+								    					<div class="btn-group" role="group" aria-label="...">
+														  <button type="button" class="btn btn-default btn-sm" ng-class="{'active': isHeightActive('in')}" value="in" ng-click="setHeightUnit($event)">in</button>
+														  <button type="button" class="btn btn-default btn-sm" ng-class="{'active': isHeightActive('cm')}" value="cm" ng-click="setHeightUnit($event)">cm</button>
+														</div>
+								    				</td>
+								    			</tr>
+								    			<tr>
+								    				<td>Distance</td>
+								    				<td>
+								    					<div class="btn-group" role="group" aria-label="...">
+														  <button type="button" class="btn btn-default btn-sm" value="mi" ng-class="{'active': isDistanceActive('mi')}" ng-click="setDistanceUnit($event)">mi</button>
+														  <button type="button" class="btn btn-default btn-sm" value="km" ng-class="{'active': isDistanceActive('km')}" ng-click="setDistanceUnit($event)">km</button>
+														</div>
+								    				</td>
+								    			</tr>
+								    			<tr>
+								    				<td>Calories</td>
+								    				<td>
+								    					<div class="btn-group" role="group" aria-label="...">
+														  <button type="button" class="btn btn-default btn-sm" value="kcal" ng-class="{'active': isCalorieActive('kcal')}" ng-click="setCalorieUnit($event)">kcal</button>
+														  <button type="button" class="btn btn-default btn-sm" value="kJ" ng-class="{'active': isCalorieActive('kJ')}" ng-click="setCalorieUnit($event)">kJ</button>
+														</div>
+								    				</td>
+								    			</tr>
+							    			</table>
+								    	</div>
+							    	</div>
+							    	<p>
+							    		weight: {{ weight }}
+							    		<br>
+							    		height:{{ height }}
+							    		<br>
+						    			weightUnit: {{ weightUnit }}
+						    			<br>
+						    			heightUnit: {{ heightUnit }}
+						    			<br>
+						    			distanceUnit: {{ distanceUnit }}
+						    			<br>
+						    			calorieUnit: {{ calorieUnit }}
+							    	</p>
+							    </div>
+								<label class="control-label col-sm-2">Date of Birth</label>
+						      	<div class="col-sm-4">
+							      	<select ng-model="SelectedYear" ng-init="SelectedYear = Years[0]" ng-options="label for label in Years" ng-change="UpdateNumberOfDays()"></select>
+							      	<select ng-model="SelectedMonth" ng-init="SelectedMonth = Months[0]" ng-options="label for label in Months" ng-change="UpdateNumberOfDays()"></select>
+							      	<select name="day" ng-model="SelectedDay" ng-init="SelectedDay = Days[0]" ng-options="day for day in Days | limitTo:NumberOfDays" ng-change="createDateOfBirth()"></select>
+								</div>
+							</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<br>
+								<br>
+								<button class="btn btn-sm btn-secondary" type="reset">Cancel</button>
+								<button class="btn btn-sm btn-primary" type="submit">Update</button>
+							</div>
+						</form>
+						<div ng-show="message">
+			                <div ng-class="alert">{{ message }}</div>
+			            </div>
+					</div>
+				</div>
+			</div>
+			<div id="about" class="tab-pane">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">About</h3>
+					</div>
+					<div class="panel-body">
+						<table class="table aboutUserTable">
+							<tbody>
+								<tr>
+									<td class="text-muted">First Name</td>
+									<td>{{ firstname }}</td>
+								</tr>
+								<tr>
+									<td class="text-muted">Last Name</td>
+									<td>{{ lastname }}</td>
+								</tr>
+								<tr>
+									<td class="text-muted">Email</td>
+									<td>{{ email }}</td>
+								</tr>
+								<tr>
+									<td class="text-muted">Date of Birth</td>
+									<td>{{ isoDOB }}</td>
+								</tr>
+								<tr>
+									<td class="text-muted">Weight</td>
+									<td>{{ weight }} {{weightUnit}}</td>
+								</tr>
+								<tr>
+									<td class="text-muted">Height</td>
+									<td>{{ height }} {{heightUnit}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div id="photos" class="tab-pane">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="container-fluid">
+							<span style="font-size:16px; padding-left:5px">Photos and Videos</span>
+							<div ng-show="isMainUser" class="btn-group btn-group-sm pull-right" role="group">
+								<label class="btn btn-default">
+				                    <span class="glyphicon glyphicon-plus"></span> Create Album
+				                </label>
+								<label class="btn btn-default">
+				                    <span class="glyphicon glyphicon-camera"></span> Add Photos/Videos
+				                    <input type="file" ng-disabled="uploading" file-model="file.upload" name="gallery" style="display: none;" onchange="angular.element(this).scope().getFileDetails(this)" multiple>
+				                </label>
+			                </div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div ng-show="toggleUploadMenu">
+							<form ng-submit="uploadToGallery(username);">
+				                <button ng-disabled="uploading" type="submit" class="btn btn-primary">Upload</button>
+				            </form>
+				            <br>
+				            <ul class="list-inline">
+				            	<li ng-repeat="upload in galleryThumbnails">
+				            		<img ng-src="{{ upload || '../assets/images/galleryDefault.png' }}" style="max-width:175px; max-height:175px;">
+				            	</li>
+				            </ul>
+			            </div>
+			            <div>
+				            <div class="row">
+				            	<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6"  ng-repeat="photo in gallery">
+				            		<span ng-show="isMainUser" style="position:absolute; margin:2px; right:0.8em; font-size:1.5em; color:white;" class="glyphicon glyphicon-trash" ng-click="removePhoto(photo);"></span>
+				            		<img class="img-responsive galleryPhoto" ng-src="../assets/uploads/{{username}}/{{photo}}" style="max-width:175px; min-height:175px;max-height:175px;">
+				            	</div>
+				            </div>
+			            </div>
+					</div>
+				</div>
+			</div>
+			<div id="profilePic" class="tab-pane">
+				<div class="panel">
+					<div class="panel-heading">
+						Profile Pic
+					</div>
+
+					<div class="panel-body">
+						<form ng-submit="uploadProfileImage(username);">
+			                <label class="btn btn-success">
+			                    Browse
+			                    <input type="file" ng-disabled="uploading" file-model="file.upload" name="profilePic" style="display: none;" onchange="angular.element(this).scope().photoChanged(this.files)">
+			                </label>
+			                <br>
+			                <br>
+			                <button ng-disabled="uploading" type="submit" class="btn btn-primary">Upload</button>
+			            </form>
+			            <br>
+			            <img class="img-responsive" ng-src="{{ thumbnail.dataUrl || '../assets/images/defaultProfilePic.png' }}" style="max-width:175px; max-height:175px;">
+			            <br>
+			            <div ng-show="message">
+			                <div ng-class="alert">{{ message }}</div>
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- End of tab-content -->
+	</div>
+	<!-- End of col-lg-9 -->
+	</div>
+	<!-- End of row -->
+</div>
+<!-- End of container -->

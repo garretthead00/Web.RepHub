@@ -1,0 +1,16 @@
+Bootstrap colors:
+
+Success -- Green --		Hex: #5cb85c	RGB: rgb(92,184,92)
+Danger -- Red --		Hex: #d9534f	RGB: rgb(217,83,79)
+Primary	-- Dark Blue --	Hex: #428bca	RGB: rgb(66,139,202)
+Info -- Light Blue --	Hex: #5bc0de	RGB: rgb(91,192,222)
+Warning -- Orange --	Hex: #f0ad4e	RGB: rgb(240, 173, 78)
+Secondary -- White --	Hex: #f9f9f9	RGB: rgb(249, 249, 249)
+
+@gray-darker:  lighten(#000, 13.5%); // #222
+@gray-dark:    lighten(#000, 20%);   // #333
+@gray:         lighten(#000, 33.5%); // #555
+@gray-light:   lighten(#000, 46.7%); // #777
+@gray-lighter: lighten(#000, 93.5%); // #eee
+
+#websiteTitle color -- Hex: #70db70		RGB: rgb(51, 204, 51)

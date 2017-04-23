@@ -1,0 +1,232 @@
+db.exercises.insert([
+	{
+		"name" : "Outdoor Run",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": "Be sure to properly stretch and warmup your muscles. Get outside and go! Keep a steady pace.",
+		"isGuilded": true,
+		"images" : []
+		
+	},
+	{
+		"name" : "Indoor Run",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": "Be sure to properly stretch and warmup your muscles. Keep a steady pace.",
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Indoor Cycle",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Stair Master",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Elliptical",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Outdoor Swim",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Indoor Swim",
+		"type" : "Endurance",
+		"musclegroup" : "Cardio",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Bench Press",
+		"musclegroup" : "Chest",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : ['barbell_bench_press.png','barbell_bench_press_2.png']
+
+	},
+	{
+		"name" : "Barbell Squat",
+		"musclegroup" : "Legs",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+
+		"name" : "Dumbbell Alternate Curl",
+		"musclegroup" : "Arms",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+
+		"name" : "Lat Pulldown",
+		"musclegroup" : "Back",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Calf Raises",
+		"musclegroup" : "Legs",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "EZ Bar Tricep Extension",
+		"musclegroup" : "Arms",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Dumbbell Bench Press",
+		"musclegroup" : "Chest",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : ['dumbbell_bench_press.png','dumbbell_bench_press_2.png']
+	},
+	{
+		"name" : "Dumbbell Incline Press",
+		"musclegroup" : "Chest",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Dumbbell Decline Press",
+		"musclegroup" : "Chest",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+
+		"name" : "Dumbbell Bench Flyes",
+		"musclegroup" : "Chest",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Pull Ups - Wide Grip",
+		"musclegroup" : "Back",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Pull Ups - Reverse Grip",
+		"musclegroup" : "Back",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "EZ Bar Curl - Close Grip",
+		"musclegroup" : "Arms",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Barbell Shrug",
+		"musclegroup" : "Shoulder",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Hyperextensions",
+		"musclegroup" : "Back",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Dumbbell Rear Deltoid Row",
+		"musclegroup" : "Back",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Dumbbell Lunge",
+		"musclegroup" : "Legs",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Leg Extensions",
+		"musclegroup" : "Legs",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Dumbbell Lateral Raise",
+		"musclegroup" : "Shoulder",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Dumbbell Shrug",
+		"musclegroup" : "Shoulder",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	},
+	{
+		"name" : "Incline Dumbbell Curl",
+		"musclegroup" : "Arms",
+		"type" : "Strength",
+		"description": null,
+		"isGuilded": true,
+		"images" : []
+	}
+
+])

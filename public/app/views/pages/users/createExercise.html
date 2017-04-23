@@ -1,0 +1,106 @@
+<div class="container" style="
+	min-width: 400px;
+	max-width: 600px;">
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<span style="font-size:16px; padding-left:5px">Create Exercise</span>
+			</div>
+			<div class="panel-body">
+				<form name="createExerciseForm" ng-submit="createExercise.create();" novalidate>
+					<table id="createExerciseTable" class="table" style="
+						table-layout:fixed;
+    					width:100%;">
+						<tbody>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="text-muted">Name:</span>
+										<input type="text" name="name" placeholder="Name" ng-model="createExercise.exercise.name" class="form-control">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="text-muted">Muscle Group:</span>
+										<select class="form-control" name="musclegroup" ng-model="createExercise.exercise.selectedMusclegroup" ng-options="group for group in main.musclegroups"></select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+									  	<span class="text-muted">Type:</span>
+									    <select class="form-control" name="type" ng-model="createExercise.exercise.selectedExerciseType" ng-options="type for type in main.exerciseTypes"></select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<ul class="list-group">
+										<li class="list-group-item">
+											<span class="text-muted">Images:</span>
+											<br>
+											<img ng-repeat="img in createExercise.exercise.images" ng-src="../assets/uploads/exercises/{{img}}" ng-show="exercise.images" style="
+											min-width: 250px;
+											max-width: 250px;
+											min-height: 350px;
+											max-height: 350px;
+											border:1px solid #eee;
+											margin:2px;">
+										</li>
+										<li class="list-group-item" style="background-color: #f9f9f9;">
+								            <ul class="list-inline">
+								            	<li ng-repeat="upload in galleryThumbnails">
+								            		<img ng-src="{{ upload }}" ng-show="upload" style="
+													min-width: 150px;
+													max-width: 150px;
+													min-height: 250px;
+													max-height: 250px;">
+										        </li>
+								            </ul>
+								            <div ng-show="message">
+								                <div ng-class="alert">{{ message }}</div>
+								            </div>
+											<label class="btn btn-default">
+							                    <span class="glyphicon glyphicon-camera"></span> Browse
+							                    <input type="file" file-model="file.upload" ng-disabled="uploading" name="exerciseImages" style="display: none;" onchange="angular.element(this).scope().getFileDetails(this)" multiple>
+							                </label>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="text-muted">Description:</span>
+										<input type="text" name="description" placeholder="Enter description" ng-model="createExercise.exercise.description" class="form-control">
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="main.isAdmin || main.isMod">
+								<td>
+									<div class="checkbox">
+										<p class="text-muted">Guilded exercises are globally shared with all users across the platform. These are the exercises which RepHub sponsers.</p>
+									    <label>
+									      <input type="checkbox" ng-checked="createExercise.exercise.isGuilded"> is Guilded?
+									    </label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="pull-right">
+										<button ng-disabled="uploading" type="reset" class="btn btn-secondary">Reset</button>
+										<button ng-disabled="uploading" type="submit" class="btn btn-primary">Update</button>
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table> 
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

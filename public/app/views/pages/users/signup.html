@@ -1,0 +1,90 @@
+<div class="container">
+	<h2 class="page-header">Sign Up</h2>
+	<div>
+		<form name="signupForm" ng-submit="signup.signupUser(userData, signupForm.$valid);" novalidate>
+
+			<!-- Firstname -->
+			<div ng-class="{ 'has-success':(signupForm.firstname.$valid && !signupForm.firstname.$pristine), 'has-error':(!signupForm.firstname.$valid && !signupForm.firstname.$pristine) || (!signupForm.firstname.$valid && signupForm.$submitted) }">
+				<input class="form-control" type="text" name="firstname" placeholder="First Name" ng-model="signup.userData.firstname" ng-pattern="/^([a-zA-Z]{2,25})+$/" ng-minlength="2" ng-maxlength="25" required>
+				<p class="help-block" ng-show="(!signupForm.firstname.$pristine && signupForm.firstname.$error.required) || (signupForm.$submitted && signupForm.firstname.$error.required)">This field is required</p>
+				<ul ng-show="(!signupForm.firstname.$pristine && signupForm.firstname.$error.pattern) || (!signupForm.firstname.$pristine && signupForm.firstname.$error.minlength) || (!signupForm.firstname.$pristine && signupForm.firstname.$error.maxlength)">
+					<li>Must not contain any numbers or special characters.</li>
+					<li>Must be at least 2 characters and no more than 25 characters long.</li>
+				</ul>
+			</div>
+			<br>
+			<!-- Lastname -->
+			<div ng-class="{ 'has-success':(signupForm.lastname.$valid && !signupForm.lastname.$pristine), 'has-error':(!signupForm.lastname.$valid && !signupForm.lastname.$pristine) || (!signupForm.lastname.$valid && signupForm.$submitted) }">
+				<input class="form-control" type="text" name="lastname" placeholder="Last Name" ng-model="signup.userData.lastname" ng-pattern="/^(([a-zA-Z]{2,25})+)+$/" ng-minlength="2" ng-maxlength="25" required>
+				<p class="help-block" ng-show="(!signupForm.lastname.$pristine && signupForm.lastname.$error.required) || (signupForm.$submitted && signupForm.lastname.$error.required)">This field is required</p>
+				<ul ng-show="(!signupForm.lastname.$pristine && signupForm.lastname.$error.pattern) || (!signupForm.lastname.$pristine && signupForm.lastname.$error.minlength) || (!signupForm.lastname.$pristine && signupForm.lastname.$error.maxlength)">
+					<li>Must not contain any numbers or special characters.</li>
+					<li>Must be at least 2 characters and no more than 25 characters long.</li>
+				</ul>
+			</div>
+			<br>
+
+			<!-- Username -->
+			<div ng-class="{ 'has-success':(signupForm.username.$valid && !signupForm.username.$pristine && !signup.isUsernameInvalid), 'has-error':(!signupForm.username.$valid && !signupForm.username.$pristine) || (!signupForm.username.$valid && signupForm.$submitted) || signup.isUsernameInvalid }">
+				<input class="form-control" type="text" name="username" placeholder="username" ng-model="signup.userData.username" ng-pattern="/^(?!.*?[\W])(?=.*?[a-zA-Z]|=.*?[A-Z]).{3,25}$/" ng-minlength="3" ng-maxlength="25" ng-blur="signup.checkUsername(userData)" required>
+				<p class="help-block" ng-show="(!signupForm.username.$pristine && signupForm.username.$error.required) || (signupForm.$submitted && signupForm.username.$error.required)">This field is required</p>
+				<p class="help-block" ng-show="signup.usernameMsg && !signupForm.username.$error.required && signupForm.username.$valid">{{ signup.usernameMsg }}</p>
+				<ul ng-show="(!signupForm.username.$pristine && signupForm.username.$error.pattern) || (!signupForm.username.$pristine && signupForm.username.$error.minlength) || (!signupForm.username.$pristine && signupForm.username.$error.maxlength)">
+					<li>Must not contain any special characters or spaces</li>
+					<li>Must be at least 3 characters and no more than 25 characters long.</li>
+				</ul>
+			</div>
+			<br>			
+			<!-- Email -->
+			<div ng-class="{ 'has-success':(signupForm.email.$valid && !signupForm.email.$pristine && !signup.isEmailInvalid), 'has-error':(!signupForm.email.$valid && !signupForm.email.$pristine) || (!signupForm.email.$valid && signupForm.$submitted) || signup.isEmailInvalid }">
+				<input class="form-control" type="text" name="email" placeholder="email" ng-model="signup.userData.email" ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" ng-minlength="3" ng-maxlength="25" ng-blur="signup.checkEmail(userData)" required>
+				<p class="help-block" ng-show="(!signupForm.email.$pristine && signupForm.email.$error.required) || (signupForm.$submitted && signupForm.email.$error.required)">This field is required</p>
+				<p class="help-block" ng-show="signup.emailMsg && !signupForm.email.$error.required && signupForm.email.$valid">{{ signup.emailMsg }}</p>
+				<ul ng-show="(!signupForm.email.$pristine && signupForm.email.$error.pattern) || (!signupForm.email.$pristine && signupForm.email.$error.minlength) || (!signupForm.email.$pristine && signupForm.email.$error.maxlength)">
+					<li>Must be a valid email address.</li>
+					<li>Must contain "@".</li>
+					<li>Must be at least 3 characters and no more than 25 characters long.</li>
+				</ul>
+			</div>
+
+
+			
+			<br>
+
+			<!-- Password -->
+			<div ng-class="{ 'has-success':(signupForm.firstPassword.$valid && !signupForm.firstPassword.$pristine), 'has-error':(!signupForm.firstPassword.$valid && !signupForm.firstPassword.$pristine) || (!signupForm.firstPassword.$valid && signupForm.$submitted) }">
+				<input class="form-control" type="password" name="firstPassword" placeholder="password" ng-model="firstPassword" ng-pattern="/^(?=[A-Za-z0-9!@%&#]{8,25}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/" ng-minlength="8" ng-maxlength="25" required>
+				<p class="help-block" ng-show="(!signupForm.firstPassword.$pristine && signupForm.firstPassword.$error.required) || (signupForm.$submitted && signupForm.firstPassword.$error.required)">This field is required</p>
+				<ul ng-show="(!signupForm.firstPassword.$pristine && signupForm.firstPassword.$error.pattern) || (!signupForm.firstPassword.$pristine && signupForm.firstPassword.$error.minlength) || (!signupForm.firstPassword.$pristine && signupForm.firstPassword.$error.maxlength)">
+					<li>Must contain at least one upper case letter.</li>
+					<li>Must contain at least one lower case letter.</li>
+					<li>Must contain at least one number.</li>
+					<li>Optional: Contain special characters { !, @, %, &, # }.</li>
+					<li>Must be at least 8 characters and no more than 25 characters long.</li>
+				</ul>
+			</div>
+			<br>
+			<!-- Confirm Password -->
+			<div ng-class="{ 'has-success': (confirmed && !signupForm.confirmPassword.$error.required), 'has-error':(!confirmed && !signupForm.confirmPassword.$error.required) || (signupForm.confirmPassword.$error.required && !signupForm.confirmPassword.$pristine) || (signupForm.$submitted && signupForm.confirmPassword.$error.required)}">
+				<input class="form-control" type="password" name="confirmPassword" placeholder="re-enter password" ng-model="confirm" match="{{[firstPassword]}}" ng-change="signup.userData.password = confirm" required>
+				<p class="help-block" ng-show="(!signupForm.confirmPassword.$pristine && signupForm.confirmPassword.$error.required) || (signupForm.$submitted && signupForm.confirmPassword.$error.required)">This field is required</p>
+				<p class="help-block" ng-show="!confirmed && !signupForm.confirmPassword.$pristine && signupForm.firstPassword.$valid">Passwords do not match</p>
+			</div>
+			<br><br>
+			<button class="btn btn-primary" type="submit">Create</button>
+		</form>
+		<br>
+
+		<!-- Success Message display -->
+		<div class="jumbotron text-center show-hide-message alert alert-success" ng-show="signup.successMsg">
+			<span class="glyphicon glyphicon-repeat spinner"></span>
+			<p>{{ signup.successMsg }}</p>
+		</div>
+		<br>
+		<!-- Error Message display -->
+		<div class="row show-hide-message" ng-show="signup.errorMsg">
+			<div class="alert alert-danger">{{ signup.errorMsg }}</div>
+		</div>
+		<br>
+	</div>
+</div>

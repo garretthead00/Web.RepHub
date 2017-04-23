@@ -1,0 +1,92 @@
+body{
+	min-width: 400px;
+	width:100%;
+	margin: 0;
+	padding: 0;
+	background-color: #E5E7E9;
+}
+
+#defaultMainContent{
+
+	display:block;
+	position: relative;
+	min-width: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+}
+#mainHeader, #mainBody, #mainFooter{
+	display: block;
+	position: relative;
+	min-width: 100%;
+	width:100%;
+	margin:0px;
+	padding: 0px;
+
+}
+#mainFooter{
+	background-color: #222222;
+}
+
+#mainHeader{
+	min-height: 60px;
+	height:auto;
+}
+
+/** Using the calc and view port units to extend the footer height to the bottom of the page **/
+#mainFooter{
+	height: calc(100vh - 50px);
+	min-height: 250px;
+}
+
+#websiteTitle{
+  font-size: 10em;
+  vertical-align: middle;
+  font-family: 'Oxygen', sans-serif;
+  font-weight: 400;
+  color: #70db70;
+  font-size:26px;
+}
+
+.linkListHeader{
+	border-bottom: 1px solid #D9D9D9;
+	vertical-align: middle;
+  	font-size:26px;
+  	color: #D9D9D9;
+
+}
+
+.error-message{
+	color:red;
+}
+
+/* Show and Hide */
+.show-hide-message.ng-hide-remove {
+	-webkit-animation:zoomIn 0.4s both ease;
+	-moz-animation:zoomIn 0.4s both ease;
+	animation:zoomIn 0.4s both ease;
+}
+
+/* Animations */
+
+/* loading spinner */
+.spinner {
+	-webkit-animation:spin 1s infinite;
+	-moz-animation:spin 1s infinite;
+	animation:spin 1s infinite;
+}
+
+@keyframes spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+	from { -moz-transform: rotate(0deg); }
+	to { -moz-transform: rotate(360deg); }
+}

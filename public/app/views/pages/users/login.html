@@ -1,0 +1,22 @@
+ <div class="container">
+	<h2 class="page-header">Login</h2>
+	<div>
+		<form ng-submit="main.loginUser(loginData);">
+			<input class="form-control" type="text" name="userName" placeholder="username" ng-model="main.loginData.username">
+			<br>
+			<input class="form-control" type="password" name="password" placeholder="password" ng-model="main.loginData.password">
+			<br><br>
+			<button class="btn btn-primary" type="submit">Login</button>
+		</form>
+		<br>
+		<div class="jumbotron text-center show-hide-message alert alert-success" ng-show="main.successMsg">
+			<span class="glyphicon glyphicon-repeat spinner"></span>
+			<p>{{ main.successMsg }}</p>
+		</div>
+		<br>
+		<div class="row show-hide-message" ng-show="main.errorMsg">
+			<div class="alert alert-danger">{{ main.errorMsg }}</div>
+		</div>
+		<br>
+	</div>
+</div>

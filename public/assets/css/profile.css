@@ -1,0 +1,6 @@
+.aboutUserTable > tbody > tr:first-child > td,
+#unitsTable > tbody > tr:first-child > td,
+#editExerciseTable > tbody > tr:first-child > td,
+#createExerciseTable > tbody > tr:first-child > td {
+    border: none;
+}
