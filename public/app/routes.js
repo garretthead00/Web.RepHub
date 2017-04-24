@@ -68,6 +68,13 @@ var app = angular.module('rephubRoutes', ['ngRoute'])
 		authenticated: true
 		
 	})
+	.when('/exercises',{
+		templateUrl: 'app/views/pages/users/exercises.html',
+		controller: 'exerciseCtrl',
+		controllerAs: 'exercises',
+		authenticated: true
+		
+	})
 	.when('/editExercise/:id',{
 		templateUrl: 'app/views/pages/users/editExercise.html',
 		controller: 'editExerciseCtrl',

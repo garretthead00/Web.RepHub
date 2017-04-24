@@ -1,0 +1,104 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span style="font-size:16px; padding-left:5px">Exercises</span>
+				</div>
+				<div class="panel-body">
+					<ul class="nav nav-tabs">
+						<li role="presentation"><a href="/workouts"><label>Workouts</label></a></li>
+						<li role="presentation" href="/exercises" class="active"><a><label>Exercises</label></a></li>
+					</ul>
+					<div style="margin-top:5px;">
+						<div class="container-fluid">
+							<div class="row">
+								<div id="exerciseList" style="padding: 0px;" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div style="padding: 5px;" class="text-muted">
+									<label>Muscle Group</label>
+									<a href="/createExercise"><span class="pull-right glyphicon glyphicon-plus"></span></a>
+								</div>
+									<ul class="list-group">
+										<li class="list-group-item" ng-repeat="item in exercises">
+											<a data-toggle="collapse" data-target="#{{item._id}}" class="text-muted"><label>{{ item._id }}</label><span class="glyphicon glyphicon-menu-down pull-right"></span></a>
+											<div id="{{item._id}}" class="collapse" style="margin-top: 5px;">
+												<ul class="list-group">
+													<li class="list-group-item" ng-repeat="ex in item.exercises | orderBy: 'name'" ng-click="showExercise(ex._id)">{{ ex.name }}
+													<span style="margin:0px 5px;" class="glyphicon glyphicon-trash pull-right" ng-click="delete(ex)"></span>
+													</li>
+												</ul>
+										    </div>
+										</li>
+									</ul>
+								</div>
+								<div id="mainDisplay" class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+									<div class="page-header">
+										<h2>{{selectedExercise.name}}</h2>
+									</div>
+									<h4 class="text-muted">{{selectedExercise.type}}
+										<span class="pull-right" style="font-size: 14px;">
+											<span class="glyphicon glyphicon-pencil" style="margin:2px;"></span>
+											<span class="glyphicon glyphicon-stats" style="margin:2px;"></span>
+											<a href="/editExercise/{{selectedExercise._id}}"><span ng-show="main.isAdmin || main.isMod" class="glyphicon glyphicon-wrench" style="margin:2px;"></span></a>
+											<span ng-show="main.isAdmin || main.isMod" class="glyphicon glyphicon-trash" style="margin:2px;"></span>
+											<span class="glyphicon glyphicon-option-horizontal" style="margin:2px;"></span>
+										</span>
+									</h4>
+								    <h4 class="text-muted">{{selectedExercise.musclegroup}}</h4>
+								    <br>
+								  	<section>
+										<div id="theCarousel" class="carousel slide" data-ride="carousel" ng-show="selectedExercise.images.length > 0">
+											<div class="carousel-inner">
+												<div class="item" ng-class="{active:!$index}" ng-repeat="img in selectedExercise.images">
+													<img ng-src="../assets/uploads/exercises/{{img}}" ng-show="selectedExercise.images" style="
+														min-width: 250px;
+														max-width: 250px;
+														min-height: 350px;
+														max-height: 350px;
+														margin: 5px auto;
+														">
+												</div>
+											</div>
+											<a class="left carousel-control" data-target="#theCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+											<a class="right carousel-control" data-target="#theCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>				
+										</div>
+									</section>
+									<br>
+									<h5 class="text-muted">{{selectedExercise.description}}</h5>
+									<br><br>
+									<div >
+										<table class="table text-muted">
+											<thead>
+												<tr>
+													<th colspan="2">
+														Last Log -- Mar 31, 2017
+														<span class="pull-right">Add Log <span class="glyphicon glyphicon-plus"></span></span>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>150 lbs x 8 reps</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>160 lbs x 8 reps</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>175 lbs x 8 reps</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
