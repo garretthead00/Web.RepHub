@@ -62,28 +62,28 @@ var app = angular.module('rephubRoutes', ['ngRoute'])
 		
 	})
 	.when('/workouts',{
-		templateUrl: 'app/views/pages/users/workouts.html',
+		templateUrl: 'app/views/pages/workouts/workouts.html',
 		controller: 'workoutCtrl',
 		controllerAs: 'workouts',
 		authenticated: true
 		
 	})
 	.when('/exercises',{
-		templateUrl: 'app/views/pages/users/exercises.html',
+		templateUrl: 'app/views/pages/exercises/exercises.html',
 		controller: 'exerciseCtrl',
 		controllerAs: 'exercises',
 		authenticated: true
 		
 	})
 	.when('/editExercise/:id',{
-		templateUrl: 'app/views/pages/users/editExercise.html',
+		templateUrl: 'app/views/pages/exercises/editExercise.html',
 		controller: 'editExerciseCtrl',
 		controllerAs: 'editExercise',
 		authenticated: true
 		
 	})
 	.when('/createExercise',{
-		templateUrl: 'app/views/pages/users/createExercise.html',
+		templateUrl: 'app/views/pages/exercises/createExercise.html',
 		controller: 'createExerciseCtrl',
 		controllerAs: 'createExercise',
 		authenticated: true

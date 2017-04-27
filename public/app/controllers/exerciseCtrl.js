@@ -167,6 +167,8 @@ angular.module('exerciseController', ['exerciseServices'])
 
     // Function to create the new exercise.
     this.create = function(){
+        this.errorMsg = false;
+
         console.log("create!");
         console.log("exercise--");
         console.log("name: " + app.exercise.name);
@@ -178,6 +180,7 @@ angular.module('exerciseController', ['exerciseServices'])
                 console.log("Exercise created!");
             } else {
                 console.log("Exercise not created with err.msg: " + data.data.message);
+                this.errorMsg = data.data.message;
             }
         });
     };

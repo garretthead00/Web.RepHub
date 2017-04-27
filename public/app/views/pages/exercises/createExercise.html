@@ -1,0 +1,142 @@
+<div class="container" style="
+	min-width: 400px;
+	max-width: 600px;">
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<span style="font-size:16px; padding-left:5px">Create Exercise</span>
+			</div>
+			<div class="panel-body">
+				<form name="createExerciseForm" ng-submit="createExercise.create();" validate>
+					<table id="createExerciseTable" class="table" style="
+						table-layout:fixed;
+    					width:100%;">
+						<tbody>
+							<tr>
+								<td>
+									<div class="form-group">
+										<div ng-class="{ 'has-success':(createExerciseForm.name.$valid && !createExerciseForm.name.$pristine), 'has-error':(!createExerciseForm.name.$valid && !createExerciseForm.name.$pristine) || (!createExerciseForm.name.$valid && createExerciseForm.$submitted) }">
+											<span class="text-muted">Name:</span>
+											<input type="text" name="name" placeholder="Name" ng-model="createExercise.exercise.name" class="form-control" ng-pattern="/^([a-zA-Z_ ]{2,25})+$/" ng-minlength="2" ng-maxlength="25" required>
+											<p class="help-block" ng-show="(!createExerciseForm.name.$pristine && createExerciseForm.name.$error.required) || (createExerciseForm.$submitted && createExerciseForm.name.$error.required)">This field is required</p>
+											<ul ng-show="(!createExerciseForm.name.$pristine && createExerciseForm.name.$error.pattern) || (!createExerciseForm.name.$pristine && createExerciseForm.name.$error.minlength) || (!createExerciseForm.name.$pristine && createExerciseForm.name.$error.maxlength)">
+												<li>Must not contain any numbers or special characters.</li>
+												<li>Must be at least 2 characters and no more than 25 characters long.</li>
+											</ul>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<div ng-class="{ 'has-success':(createExerciseForm.musclegroup.$valid && !createExerciseForm.musclegroup.$pristine), 'has-error':(!createExerciseForm.musclegroup.$valid && !createExerciseForm.musclegroup.$pristine) || (!createExerciseForm.musclegroup.$valid && createExerciseForm.$submitted) }">
+											<span class="text-muted">Muscle Group:</span>
+											<select class="form-control" name="musclegroup" ng-model="createExercise.exercise.selectedMusclegroup" ng-options="group for group in main.musclegroups" required>
+												<option value="">-- Select Muscle Group --</option> 
+											</select>
+											<span ng-show="createExerciseForm.$submitted && createExerciseForm.musclegroup.$error.required">Must select a muscle group</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<div ng-class="{ 'has-success':(createExerciseForm.type.$valid && !createExerciseForm.type.$pristine), 'has-error':(!createExerciseForm.type.$valid && !createExerciseForm.type.$pristine) || (!createExerciseForm.type.$valid && createExerciseForm.$submitted) }">
+										  	<span class="text-muted">Type:</span>
+										    <select class="form-control" name="type" ng-model="createExercise.exercise.selectedExerciseType" ng-options="type for type in main.exerciseTypes" required>
+										    	<option value="">-- Select Type --</option> 
+										    </select>
+										    <span ng-show="createExerciseForm.$submitted && createExerciseForm.type.$error.required">Must select a type</span>
+									    </div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div ng-class="{ 'has-success':(createExerciseForm.type.$valid && !createExerciseForm.type.$pristine), 'has-error':(!createExerciseForm.type.$valid && !createExerciseForm.type.$pristine) || (!createExerciseForm.type.$valid && createExerciseForm.$submitted) }">
+										<ul class="list-group">
+											<li class="list-group-item">
+												<span class="text-muted">Images:</span>
+												<br>
+												<img ng-repeat="img in createExercise.exercise.images" ng-src="../assets/uploads/exercises/{{img}}" ng-show="exercise.images" style="
+												min-width: 250px;
+												max-width: 250px;
+												min-height: 350px;
+												max-height: 350px;
+												border:1px solid #eee;
+												margin:2px;">
+											</li>
+											<li class="list-group-item" style="background-color: #f9f9f9;">
+									            <ul class="list-inline">
+									            	<li ng-repeat="upload in galleryThumbnails">
+									            		<img ng-src="{{ upload }}" ng-show="upload" style="
+														min-width: 150px;
+														max-width: 150px;
+														min-height: 250px;
+														max-height: 250px;">
+											        </li>
+									            </ul>
+									            <div ng-show="message">
+									                <div ng-class="alert">{{ message }}</div>
+									            </div>
+												<label class="btn btn-default">
+								                    <span class="glyphicon glyphicon-camera"></span> Browse
+								                    <input type="file" file-model="file.upload" ng-disabled="uploading" name="exerciseImages" style="display: none;" onchange="angular.element(this).scope().getFileDetails(this)" multiple>
+								                </label>
+											</li>
+										</ul>
+										<span ng-show="createExerciseForm.exerciseImages.length <= 0">Form must contain  images</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<div ng-class="{ 'has-success':(createExerciseForm.description.$valid && !createExerciseForm.description.$pristine), 'has-error':(!createExerciseForm.description.$valid && !createExerciseForm.description.$pristine) || (!createExerciseForm.description.$valid && createExerciseForm.$submitted) }">
+											<span class="text-muted">Description:</span>
+											<input type="text" name="description" placeholder="Enter description" ng-model="createExercise.exercise.description" class="form-control" ng-pattern="/^([a-zA-Z0-9.,:_ ]{2,25})+$/" ng-minlength="2" ng-maxlength="250" required>
+											<p class="help-block" ng-show="(!createExerciseForm.description.$pristine && createExerciseForm.description.$error.required) || (createExerciseForm.$submitted && createExerciseForm.description.$error.required)">This field is required</p>
+											<ul ng-show="(!createExerciseForm.description.$pristine && createExerciseForm.description.$error.pattern) || (!createExerciseForm.description.$pristine && createExerciseForm.description.$error.minlength) || (!createExerciseForm.description.$pristine && createExerciseForm.description.$error.maxlength)">
+												<li>Must not contain any special characters.</li>
+												<li>Must be at least 2 characters and no more than 250 characters long.</li>
+											</ul>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr ng-show="main.isAdmin || main.isMod">
+								<td>
+									<div class="checkbox">
+										<p class="text-muted">Guilded exercises are globally shared with all users across the platform. These are the exercises which RepHub sponsers.</p>
+									    <label>
+									      <input type="checkbox" ng-checked="createExercise.exercise.isGuilded"> is Guilded?
+									    </label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="pull-right">
+										<button ng-disabled="createExercise.uploading" type="reset" class="btn btn-secondary">Reset</button>
+										<button ng-disabled="createExercise.uploading" type="submit" class="btn btn-primary">Create</button>
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table> 
+				</form>
+				<br>
+				<div class="jumbotron text-center show-hide-message alert alert-success" ng-show="createExercise.successMsg">
+					<span class="glyphicon glyphicon-repeat spinner"></span>
+					<p>{{ createExercise.successMsg }}</p>
+				</div>
+				<br>
+				<div class="row show-hide-message" ng-show="createExercise.errorMsg">
+					<div class="alert alert-danger">{{ createExercise.errorMsg }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
