@@ -139,8 +139,9 @@ angular.module('exerciseController', ['exerciseServices'])
                 }
             });
             $scope.uploading = false;
+        } else {
+            $scope.errorMsg = "Form is not valid.";
         }
-        $scope.errorMsg = "Form is not valid.";
 
 	};
 })
