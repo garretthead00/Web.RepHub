@@ -12,6 +12,7 @@ var app = angular.module('rephubRoutes', ['ngRoute'])
 	.when('/home',{
 		templateUrl: 'app/views/pages/home.html',
 		authenticated: false
+		
 	})
 	.when('/about',{
 		templateUrl: 'app/views/pages/about.html',

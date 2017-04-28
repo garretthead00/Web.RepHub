@@ -12,10 +12,10 @@ var todaysDate = function(){
 	var yyyy = today.getFullYear();
 
 	if(dd<10) {
-	    dd='0'+dd
+	    dd='0'+dd;
 	} 
 	if(mm<10) {
-	    mm='0'+mm
+	    mm='0'+mm;
 	} 
 	today = mm+'/'+dd+'/'+yyyy;
 	return today;
@@ -616,6 +616,10 @@ module.exports = function(router){
 		});
 	});
 
+
+	// Call to edit the exercise with id and update with the exercise data.
+	// Guilded exercises can only be updated by Admins.
+	// Non-Guilded exercises can only be updated by the creator. exercise.createdby = user._id
 	router.put('/editExercise', function(req,res){
 		User.findOne({ username: req.decoded.username }, function(err, mainUser) {
             if (err) throw err;
@@ -624,9 +628,6 @@ module.exports = function(router){
             } else{
             	if(req.body.isGuilded){
             		if (mainUser.permissions === 'Admin' || mainUser.permissions === 'Mod') {
-            			console.log("name: " + req.body.name);
-            			console.log("type: " + req.body.type);
-            			console.log("musclegroup: " + req.body.musclegroup);
             			Exercise.findOneAndUpdate({_id: req.body._id},
             			{
             				$set: {
@@ -641,7 +642,7 @@ module.exports = function(router){
             					Exercise.findOne({_id: req.body._id}, function(err,exercise){
 									if(err) throw err;
 									if(exercise) {
-										res.json({success: true, exercise: exercise});
+										res.json({success: true, exercise: exercise, message: 'Exercise updated successfully!'});
 									} 
 									else {
 										res.json({ success: false, message: 'Exercise does not exists.'});
@@ -656,7 +657,33 @@ module.exports = function(router){
 	                	res.json({success: false, message: 'User does not have permission to edit this Exercise.'});
 	                }
             	} else {
-            		// check is the exercise was created by this user.
+            		if (req.body.createdBy == req.decoded._id) {
+            			Exercise.findOneAndUpdate({_id: req.body._id},
+            			{
+            				$set: {
+            					name : req.body.name,
+            					musclegroup: req.body.musclegroup,
+            					type: req.body.type,
+            					description: req.body.description
+            				}
+            			}, function(err, doc){
+            				if (err) throw err;
+            				if(doc){
+            					Exercise.findOne({_id: req.body._id}, function(err,exercise){
+									if(err) throw err;
+									if(exercise) {
+										res.json({success: true, exercise: exercise, message: 'Exercise updated successfully!'});
+									} 
+									else {
+										res.json({ success: false, message: 'Exercise does not exists.'});
+									}
+								});
+            				} else {
+            					res.json({ success:false, message: "Exercise does not exist!"});
+            				}
+
+            			});
+            		} else { res.json({ success:false, message: "User cannot edit this exercise!"}); }
             	}
             }
     	});

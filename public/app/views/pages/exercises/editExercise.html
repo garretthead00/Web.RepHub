@@ -7,7 +7,7 @@
 				<span style="font-size:16px; padding-left:5px">Edit Exercise</span>
 			</div>
 			<div class="panel-body">
-				<form ng-submit="edit();" novalidate>
+				<form name="editExerciseForm" ng-submit="editExercise.edit(editExerciseForm.$valid);" validate>
 					<table id="editExerciseTable" class="table" style="
 						table-layout:fixed;
     					width:100%;">
@@ -15,24 +15,42 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<span class="text-muted">Name:</span>
-										<input type="text" name="name" placeholder="Name" ng-model="exerciseToEdit.name" class="form-control">
+										<div ng-class="{ 'has-success':(editExerciseForm.name.$valid && !editExerciseForm.name.$pristine), 'has-error':(!editExerciseForm.name.$valid && !editExerciseForm.name.$pristine) || (!editExerciseForm.name.$valid && editExerciseForm.$submitted) }">
+											<span class="text-muted">Name:</span>
+											<input type="text" name="name" placeholder="Name" ng-model="exerciseToEdit.name" class="form-control" ng-pattern="/^([a-zA-Z_ ]{2,25})+$/" ng-minlength="2" ng-maxlength="25" required>
+											<p class="help-block" ng-show="(!editExerciseForm.name.$pristine && editExerciseForm.name.$error.required) || (editExerciseForm.$submitted && editExerciseForm.name.$error.required)">This field is required</p>
+											<ul ng-show="(!editExerciseForm.name.$pristine && editExerciseForm.name.$error.pattern) || (!editExerciseForm.name.$pristine && editExerciseForm.name.$error.minlength) || (!editExerciseForm.name.$pristine && editExerciseForm.name.$error.maxlength)">
+												<li>Must not contain any numbers or special characters.</li>
+												<li>Must be at least 2 characters and no more than 25 characters long.</li>
+											</ul>
+										</div>
+
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-										<span class="text-muted">Muscle Group:</span>
-										<select class="form-control" name="musclegroup" ng-model="selectedMusclegroup" ng-options="group for group in main.musclegroups"></select>
+										<div ng-class="{ 'has-success':(editExerciseForm.musclegroup.$valid && !editExerciseForm.musclegroup.$pristine), 'has-error':(!editExerciseForm.musclegroup.$valid && !editExerciseForm.musclegroup.$pristine) || (!editExerciseForm.musclegroup.$valid && editExerciseForm.$submitted) }">
+											<span class="text-muted">Muscle Group:</span>
+											<select class="form-control" name="musclegroup" ng-model="selectedMusclegroup" ng-options="group for group in main.musclegroups" required>
+												<option value="">-- Select Muscle Group --</option> 
+											</select>
+											<span ng-show="editExerciseForm.$submitted && editExerciseForm.musclegroup.$error.required">Must select a muscle group</span>
+										</div>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-									  	<span class="text-muted">Type:</span>
-									    <select class="form-control" name="type" ng-model="selectedExerciseType" ng-options="type for type in main.exerciseTypes"></select>
+									    <div ng-class="{ 'has-success':(editExerciseForm.type.$valid && !editExerciseForm.type.$pristine), 'has-error':(!editExerciseForm.type.$valid && !editExerciseForm.type.$pristine) || (!editExerciseForm.type.$valid && editExerciseForm.$submitted) }">
+										  	<span class="text-muted">Type:</span>
+										    <select class="form-control" name="type" ng-model="selectedExerciseType" ng-options="type for type in main.exerciseTypes" required>
+										    	<option value="">-- Select Type --</option> 
+										    </select>
+										    <span ng-show="editExerciseForm.$submitted && editExerciseForm.type.$error.required">Must select a type</span>
+									    </div>
 									</div>
 								</td>
 							</tr>
@@ -74,8 +92,15 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<span class="text-muted">Description:</span>
-										<input type="text" name="description" placeholder="Enter description" ng-model="exerciseToEdit.description" class="form-control">
+										<div ng-class="{ 'has-success':(editExerciseForm.description.$valid && !editExerciseForm.description.$pristine), 'has-error':(!editExerciseForm.description.$valid && !editExerciseForm.description.$pristine) || (!editExerciseForm.description.$valid && editExerciseForm.$submitted) }">
+											<span class="text-muted">Description:</span>
+											<input type="text" name="description" placeholder="Enter description" ng-model="exerciseToEdit.description" class="form-control" ng-pattern="/^([a-zA-Z0-9.,:_ ]{2,25})+$/" ng-minlength="2" ng-maxlength="250" required>
+											<p class="help-block" ng-show="(!editExerciseForm.description.$pristine && editExerciseForm.description.$error.required) || (editExerciseForm.$submitted && editExerciseForm.description.$error.required)">This field is required</p>
+											<ul ng-show="(!editExerciseForm.description.$pristine && editExerciseForm.description.$error.pattern) || (!editExerciseForm.description.$pristine && editExerciseForm.description.$error.minlength) || (!editExerciseForm.description.$pristine && editExerciseForm.description.$error.maxlength)">
+												<li>Must not contain any special characters.</li>
+												<li>Must be at least 2 characters and no more than 250 characters long.</li>
+											</ul>
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -100,6 +125,18 @@
 						</tbody>
 					</table> 
 				</form>
+				<br>
+				<div class="jumbotron text-center show-hide-message alert alert-info" ng-show="uploading">
+					<span class="glyphicon glyphicon-repeat spinner"></span>
+					<p>Updating data</p>
+				</div>
+				<div class="jumbotron text-center show-hide-message alert alert-success" ng-show="successMsg">
+					<p>{{ successMsg }}</p>
+				</div>
+				<br>
+				<div class="jumbotron text-center show-hide-message alert alert-danger" ng-show="errorMsg">
+					<p>{{ errorMsg }}</p>
+				</div>
 			</div>
 		</div>
 	</div>

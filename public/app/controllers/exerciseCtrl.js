@@ -31,6 +31,11 @@ angular.module('exerciseController', ['exerciseServices'])
             }
         });
     };
+
+    // function to remove the exercise from the db.
+    $scope.removeExercise = function(exerciseID){
+
+    }
 })
 
 .controller('editExerciseCtrl', function(Exercise, $scope, $routeParams, $timeout, $route, $window) {
@@ -78,54 +83,65 @@ angular.module('exerciseController', ['exerciseServices'])
 		}
 	});
 
-	$scope.edit = function(data){
+	this.edit = function(valid){
 
-        $scope.uploading = true;
-        $scope.exerciseToEdit.musclegroup = $scope.selectedMusclegroup;
-        $scope.exerciseToEdit.type = $scope.selectedExerciseType;
-        console.log("name: " + $scope.exerciseToEdit.name);
-        console.log("type: " + $scope.exerciseToEdit.type);
-        console.log("musclegroup: " + $scope.exerciseToEdit.musclegroup);
-		Exercise.editExercise($scope.exerciseToEdit).then(function(data){
-        	if (data.data.success){
-        		$scope.exerciseToEdit = data.data.exercise;
-                $scope.selectedMusclegroup = $scope.exerciseToEdit.musclegroup;
-                $scope.selectedExerciseType = $scope.exerciseToEdit.type;
+        if (valid){
 
-                // if new images are to be uploaded
-                if($scope.galleryUploads.length > 0){
-                    var files = $scope.galleryUploads;
-                    Exercise.uploadExerciseImages(files).then(function(uploadData){
-                        if(uploadData.data.success){
-                            console.log("Images uploaded!");
-                            $scope.galleryUploads = [];
-                            $scope.galleryThumbnails = [];
-                            $scope.files = {};
-                            var exerciseData = {
-                                _id: $scope.exerciseToEdit._id,
-                                files: uploadData.data.files
-                            };
-                            Exercise.addImagesToExercise(exerciseData).then(function(addData){
-                                if(addData.data.success){
-                                    $scope.exerciseToEdit = addData.data.exercise;
-                                    $scope.selectedMusclegroup = $scope.exerciseToEdit.musclegroup;
-                                    $scope.selectedExerciseType = $scope.exerciseToEdit.type;
-                                    
-                                } else {
-                                    console.log("Images not added to User's list");
-                                }
-                            });
-                        } else {
-                            console.log("Images not uploaded");
-                            $scope.galleryUploads = [];
-                            $scope.galleryThumbnails = [];
-                            $scope.files = {};
-                        }
-                    });
+            $scope.uploading = true;
+            $scope.exerciseToEdit.musclegroup = $scope.selectedMusclegroup;
+            $scope.exerciseToEdit.type = $scope.selectedExerciseType;
+            console.log("name: " + $scope.exerciseToEdit.name);
+            console.log("type: " + $scope.exerciseToEdit.type);
+            console.log("musclegroup: " + $scope.exerciseToEdit.musclegroup);
+    		Exercise.editExercise($scope.exerciseToEdit).then(function(data){
+            	if (data.data.success){
+            		$scope.exerciseToEdit = data.data.exercise;
+                    $scope.selectedMusclegroup = $scope.exerciseToEdit.musclegroup;
+                    $scope.selectedExerciseType = $scope.exerciseToEdit.type;
+
+                    // if new images are to be uploaded
+                    if($scope.galleryUploads.length > 0){
+                        var files = $scope.galleryUploads;
+                        Exercise.uploadExerciseImages(files).then(function(uploadData){
+                            if(uploadData.data.success){
+                                console.log("Images uploaded!");
+                                $scope.galleryUploads = [];
+                                $scope.galleryThumbnails = [];
+                                $scope.files = {};
+                                var exerciseData = {
+                                    _id: $scope.exerciseToEdit._id,
+                                    files: uploadData.data.files
+                                };
+                                Exercise.addImagesToExercise(exerciseData).then(function(addData){
+                                    if(addData.data.success){
+                                        $scope.exerciseToEdit = addData.data.exercise;
+                                        $scope.selectedMusclegroup = $scope.exerciseToEdit.musclegroup;
+                                        $scope.selectedExerciseType = $scope.exerciseToEdit.type;
+                                        $scope.successMsg = data.data.message;
+                                        
+                                    } else {
+                                        console.log("Images not added to User's list");
+                                        $scope.errorMsg = data.data.message;
+                                    }
+                                });
+                            } else {
+                                console.log("Images not uploaded");
+                                $scope.errorMsg = data.data.message;
+                                $scope.galleryUploads = [];
+                                $scope.galleryThumbnails = [];
+                                $scope.files = {};
+                            }
+                        });
+                    }
+                    $scope.successMsg = data.data.message;
+            	} else {
+                    $scope.errorMsg = data.data.message;
                 }
-        	} 
-        });
-        $scope.uploading = false;
+            });
+            $scope.uploading = false;
+        }
+        $scope.errorMsg = "Form is not valid.";
+
 	};
 })
 
